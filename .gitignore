@@ -1,6 +1,7 @@
 # Logs
 logs
 *.log
+timelog.txt
 
 # Runtime data
 pids
@@ -26,3 +27,4 @@ node_modules
 
 # Users Environment Variables
 .lock-wscript
+
