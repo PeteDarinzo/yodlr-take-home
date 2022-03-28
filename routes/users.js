@@ -52,7 +52,7 @@ router.get('/:name', function (req, res, next) {
       usersResults.push(user);
     }
   }
-  if (usersResults) {
+  if (usersResults.length) {
     res.json(usersResults);
   } else {
     next()
