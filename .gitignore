@@ -1,7 +1,6 @@
 # Logs
 logs
 *.log
-timelog.txt
 
 # Runtime data
 pids

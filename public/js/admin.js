@@ -4,8 +4,10 @@ const $nameField = $("#name");
 const $clearButton = $("#clear");
 const $searchFail = $("#search-fail");
 
+/* list all users upon DOM load */
 $(listUsers);
 
+/* set a user's state from pending to active */
 $userList.on("click", ".set-active", async (e) => {
   const button = $(e.target);
   const state = button.data("state");
@@ -28,6 +30,7 @@ $userList.on("click", ".set-active", async (e) => {
   }
 });
 
+/* delete a user */
 $userList.on("click", ".delete", async (e) => {
   const button = $(e.target);
   const id = button.data("id");
@@ -35,7 +38,7 @@ $userList.on("click", ".delete", async (e) => {
   $(button.closest("li")).remove();
 });
 
-
+/* search for users by full name, this may return multiple results */
 $searchForm.on("submit", async (e) => {
   e.preventDefault();
   try {
@@ -54,6 +57,7 @@ $searchForm.on("submit", async (e) => {
   }
 });
 
+/* clear search results */
 $clearButton.on("click", (e) => {
   e.preventDefault();
   $nameField.val("");
@@ -63,7 +67,7 @@ $clearButton.on("click", (e) => {
   $clearButton.addClass("d-none");
 });
 
-
+/* list all users, this is done on load and search clear */
 async function listUsers() {
   const res = await axios.get("/users");
   const users = res.data;
@@ -74,6 +78,7 @@ async function listUsers() {
   }
 }
 
+/* append a user to main list */
 function appendUser(id, email, firstName, lastName, state) {
   $userList.append(
     `

@@ -5,13 +5,14 @@ const $emailField = $("#email");
 const $successAlert = $("#register-success");
 const $failAlert = $("#register-fail");
 
+/* clear any flashed messages upon DOM load */
 $(() => {
   $successAlert.addClass("d-none");
+  $failAlert.addClass("d-none");
 })
 
-$form.on("submit", handleSubmit);
-
-async function handleSubmit(e) {
+/* submit register form, if email is duplicate an error message will flash, other a success message will flash */
+$form.on("submit", async (e) => {
   e.preventDefault();
   try {
     $successAlert.addClass("d-none");
@@ -28,4 +29,5 @@ async function handleSubmit(e) {
   } catch (e) {
     $failAlert.removeClass("d-none");
   }
-}
+});
+
