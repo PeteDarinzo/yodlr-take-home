@@ -37,10 +37,13 @@
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-xs-10 col-md-8 col-xl-6">
-        <div id="register-success" class="alert alert-success m-4 d-none" role="alert">
-          Registration complete!
-        </div>
         <h1 class="my-5"><span class="bg-light px-3 py-2 rounded">Yodlr Registration Portal</span></h1>
+        <div id="register-success" class="alert alert-success m-4 d-none" role="alert">
+          Registration Complete!
+        </div>
+        <div id="register-fail" class="alert alert-danger m-4 d-none" role="alert">
+          Email Already In Use
+        </div>
         <form id="register-form" class="bg-light p-4 border rounded">
           <label for="first-name">First Name:</label>
           <input id="first-name" type="text" name="first-name" class="form-control" required></br>

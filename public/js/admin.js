@@ -2,6 +2,7 @@ const $userList = $("#user-list");
 const $searchForm = $("#search-form");
 const $nameField = $("#name");
 const $clearButton = $("#clear");
+const $searchFail = $("#search-fail");
 
 $(listUsers);
 
@@ -37,18 +38,27 @@ $userList.on("click", ".delete", async (e) => {
 
 $searchForm.on("submit", async (e) => {
   e.preventDefault();
-  const name = $nameField.val();
-  const user = await axios.get(`/users/${name}`);
-  const { id, email, firstName, lastName, state } = user.data;
-  $userList.empty();
-  appendUser(id, email, firstName, lastName, state);
-  $clearButton.removeClass("d-none");
+  try {
+    const name = $nameField.val();
+    $clearButton.removeClass("d-none");
+    const res = await axios.get(`/users/${name}`);
+    const users = res.data;
+    const ids = Object.keys(users);
+    $userList.empty();
+    for (let i of ids) {
+      let { id, email, firstName, lastName, state } = users[i];
+      appendUser(id, email, firstName, lastName, state);
+    }
+  } catch (e) {
+    $searchFail.removeClass("d-none");
+  }
 });
 
 $clearButton.on("click", (e) => {
   e.preventDefault();
   $nameField.val("");
   $userList.empty();
+  $searchFail.addClass("d-none");
   listUsers();
   $clearButton.addClass("d-none");
 });

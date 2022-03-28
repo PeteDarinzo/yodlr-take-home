@@ -19,6 +19,12 @@ router.post('/', function (req, res) {
   if (!user.state) {
     user.state = 'pending';
   }
+  const ids = Object.keys(users);
+  for (let id of ids) {
+    if (users[id]["email"] === user.email) {
+      return next();
+    }
+  }
   users[user.id] = user;
   log.info('Created user', user);
   res.json(user);
@@ -35,6 +41,7 @@ router.get('/:id', function (req, res, next) {
 
 /* Get a specific user by name */
 router.get('/:name', function (req, res, next) {
+  let usersResults = [];
   var name = (req.params.name).toLowerCase().split(" ");
   const firstName = name[0];
   const lastName = name[1];
@@ -42,10 +49,14 @@ router.get('/:name', function (req, res, next) {
   for (let id of ids) {
     let user = users[id];
     if (((user.firstName.toLowerCase()) === firstName) && ((user.lastName.toLowerCase()) === lastName)) {
-      res.json(user);
+      usersResults.push(user);
     }
   }
-  return next()
+  if (usersResults) {
+    res.json(usersResults);
+  } else {
+    next()
+  }
 })
 
 /* Delete a user by id */
@@ -70,3 +81,4 @@ router.put('/:id', function (req, res, next) {
 
 
 module.exports = router;
+
