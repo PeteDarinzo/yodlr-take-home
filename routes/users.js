@@ -33,6 +33,21 @@ router.get('/:id', function (req, res, next) {
   res.json(users[req.params.id]);
 });
 
+/* Get a specific user by name */
+router.get('/:name', function (req, res, next) {
+  var name = (req.params.name).toLowerCase().split(" ");
+  const firstName = name[0];
+  const lastName = name[1];
+  let ids = Object.keys(users);
+  for (let id of ids) {
+    let user = users[id];
+    if (((user.firstName.toLowerCase()) === firstName) && ((user.lastName.toLowerCase()) === lastName)) {
+      res.json(user);
+    }
+  }
+  return next()
+})
+
 /* Delete a user by id */
 router.delete('/:id', function (req, res) {
   var user = users[req.params.id];
